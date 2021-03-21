@@ -1,0 +1,8 @@
+[
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/tsukaharaaya/wordpress/pages/index.vue",
+    "chunkName": "pages/index"
+  }
+]
