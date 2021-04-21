@@ -1,32 +1,31 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">app1</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <ul>
+      <li v-for="(post, index) in posts" :key="index">
+        {{ post.title }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data: () => {
+    return {
+      info: null,
+    }
+  },
+  async asyncData({ $axios }) {
+    // 取得先のURL
+    const url = 'http://mudanajikan.net/wp-json/wp/v2/posts'
+    // リクエスト（Get）
+    const response = await $axios.$get(url)
+    // 配列で返ってくるのでJSONにして返却
+    return {
+      posts: response,
+    }
+  },
+}
 </script>
 
 <style>

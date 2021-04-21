@@ -14,5 +14,9 @@ module.exports = {
   ],
   plugins: [],
   // add your custom rules here
-  rules: {},
+  rules: {
+    "eqeqeq": "off",
+    "curly": "warn",
+    "quotes": ["warn", "double"]
+  }
 }
