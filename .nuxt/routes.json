@@ -3,7 +3,6 @@
     "name": "index",
     "path": "/",
     "component": "/Users/tsukaharaaya/wordpress/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_50598b4f"
+    "chunkName": "pages/index"
   }
 ]
