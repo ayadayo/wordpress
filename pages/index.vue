@@ -1,29 +1,46 @@
 <template>
-  <div class="container">
-    <ul>
-      <li v-for="(post, index) in posts" :key="index">
-        {{ post.title }}
+  <div class="container pt-4 pb-10 grid gap-x-5 max-w-screen-lg">
+    <ul class="flex">
+      <li
+        v-for="data in wpData"
+        :key="data.id"
+        class="text-left p-2 m-2 flex-1 shadow-md"
+      >
+        <a href="">
+          <h1>{{ data.title.rendered }}</h1>
+          <time datetime="" class="text-sm text-gray-500">
+            {{ dateMethods(data.date) }}
+          </time>
+          <div v-html="data.content.rendered"></div>
+        </a>
       </li>
     </ul>
+    <Sidebar />
   </div>
 </template>
-
 <script>
+import axios from 'axios'
 export default {
   data: () => {
     return {
-      info: null,
+      wpData: null,
     }
   },
-  async asyncData({ $axios }) {
-    // 取得先のURL
-    const url = 'http://mudanajikan.net/wp-json/wp/v2/posts'
-    // リクエスト（Get）
-    const response = await $axios.$get(url)
-    // 配列で返ってくるのでJSONにして返却
-    return {
-      posts: response,
-    }
+  computed: {
+    dateMethods() {
+      return function (number) {
+        const regex = /-/g
+        return number.slice(0, 10).replace(regex, '.')
+      }
+    },
+  },
+  mounted() {
+    axios
+      .get('http://mudanajikan.net/wp-json/wp/v2/posts/')
+      .then((response) => {
+        this.wpData = response.data
+        console.log(response.data)
+      })
   },
 }
 </script>
@@ -36,11 +53,7 @@ export default {
 */
 .container {
   margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  grid-template-columns: 1fr 300px;
 }
 
 .title {

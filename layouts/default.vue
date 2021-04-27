@@ -1,8 +1,8 @@
 <template>
   <div>
     <Header />
-    <Footer />
     <Nuxt />
+    <Footer />
   </div>
 </template>
 <script>
