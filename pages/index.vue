@@ -19,11 +19,11 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data: () => {
     return {
-      wpData: null,
+      // wpData: [],
     }
   },
   computed: {
@@ -34,14 +34,34 @@ export default {
       }
     },
   },
-  mounted() {
-    axios
-      .get('http://mudanajikan.net/wp-json/wp/v2/posts/')
-      .then((response) => {
-        this.wpData = response.data
-        console.log(response.data)
-      })
+  async asyncData({ $axios }) {
+    // 取得先のURL
+    const url = 'http://mudanajikan.net/wp-json/wp/v2/posts'
+    // リクエスト（Get）
+    const response = await $axios.$get(url)
+    console.log(response)
+    // 配列で返ってくるのでJSONにして返却
+    return {
+      wpData: response,
+    }
   },
+  // async asyncData({ app }) {
+  //   const response = await app.$axios.$get(
+  //     'http://mudanajikan.net/wp-json/wp/v2/posts/'
+  //   )
+  //   console.log('aa' + response)
+  //   return {
+  //     wpData: response.data,
+  //   }
+  // },
+  // mounted() {
+  //   axios
+  //     .get('http://mudanajikan.net/wp-json/wp/v2/posts/')
+  //     .then((response) => {
+  //       this.wpData = response.data
+  //       console.log(response.data)
+  //     })
+  // },
 }
 </script>
 
