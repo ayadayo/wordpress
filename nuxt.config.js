@@ -1,4 +1,6 @@
+import axios from 'axios'
 export default {
+  mode: 'universal',
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
@@ -44,4 +46,23 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  generate: {
+    routes () {
+      return axios.get('http://mudanajikan.net/wp-json/wp/v2/posts')
+        .then((res) => {
+          // map()メソッドでパーマリンクの情報をrouteに渡します。
+          return res.data.map((post) => {
+            // パーマリンクの文字列をディレクトリ生成用に加工します。
+            let postLInk = post.link;
+            const _link = postLInk.replace( /http:\/\/mudanajikan.net/g , "" );
+            postLInk = _link;
+            console.log(post)
+            return {
+              route: `posts/${post.id}`,  // ここに入る文字列がパス情報になる。
+              payload: post,    // テンプレートで値を受け取れるようデータをpayloadへ。
+            }
+          })
+        })
+    }
+  },
 }

@@ -6,7 +6,7 @@
         :key="data.id"
         class="text-left p-2 m-2 flex-1 shadow-md"
       >
-        <a href="">
+        <a :href="`/posts?id=${data.id}`" class="block">
           <h1>{{ data.title.rendered }}</h1>
           <time datetime="" class="text-sm text-gray-500">
             {{ dateMethods(data.date) }}
