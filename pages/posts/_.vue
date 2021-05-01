@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>aaa</p>
     <p>{{ title }}</p>
     <!-- <div v-for="data in wpdata" :key="data.id">
       <h1>{{ data.title }}</h1>
